@@ -1,7 +1,5 @@
 {% extends "blog/base.html" %}
 {% block content %}
-<div class="jumbotron">
-
 
 <h1 class="posttitle">{{post.title}}</h1>
 {% if post.published_date %}
@@ -16,10 +14,10 @@
 
 {% if user.is_authenticated %}
 <a class="btn btn-dark" href="{% url 'post_edit' pk=post.pk %}">
-  <span class="glyphicon glyphicon-pencil"></span>
+  <i class="fas fa-pencil-ruler"></i>
 </a>
 <a class="btn btn-dark" href="{% url 'post_remove' pk=post.pk %}">
-  <span class="glyphicon glyphicon-remove"></span>
+  <i class="fas fa-trash"></i>
 </a>
 
 
@@ -35,10 +33,10 @@
   {% if user.is_authenticated or comment.approved_comment %}
   {{comment.created_date }}
     {% if not comment.approved_comment %}
-    <a class="btn btn-dark" href="{% url 'comment_remove' pk=comment.pk %}"><span class="glyphicon glyphicon-remove">
+    <a class="btn btn-dark" href="{% url 'comment_remove' pk=comment.pk %}"><i class="fas fa-trash"></i>
     </a>
     <a class="btn btn-dark" href="{% url 'comment_approve' pk=post.pk %}">
-    <span class="glyphicon glyphicon-ok"></i>
+    <i class="far fa-thumbs-up"></i>
     </a>
 
     {% endif %}
@@ -50,5 +48,5 @@
 {% endfor %}
 
 </div>
-</div>
+
 {% endblock %}

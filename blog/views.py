@@ -76,6 +76,7 @@ def add_comment_to_post(request,pk):
     else:
         form = CommentForm()
     return render(request,'blog/comment_form.html',{'form':form})
+    
 @login_required
 def comment_approve(request,pk):
     comment = get_object_or_404(Comment,pk=pk)

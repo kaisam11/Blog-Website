@@ -4,24 +4,17 @@
   <head>
     <meta charset="utf-8">
     <title>Blog</title>
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-    <!-- bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
-    <!-- opensource -->
-    <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
     <!-- custom css and js -->
-    <link rel="stylesheet" href="{% static 'blog/blog.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/master.css' %}">
 
     <!-- icon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
@@ -32,74 +25,49 @@
 
   </head>
   <body>
-    <!-- codepen -->
-    <!-- partial:index.partial.html -->
-<div id="particles-background" class="vertical-centered-box"></div>
-<div id="particles-foreground" class="vertical-centered-box"></div>
 
-<div class="vertical-centered-box">
-  <div class="content">
-    <div class="loader-circle"></div>
-    <div class="loader-line-mask">
-      <div class="loader-line"></div>
-    </div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
 
-  </div>
-</div>
-<!-- partial -->
+  <a class='navbar-brand mb-0 h1' href="{% url 'post_list' %}">Daily-Blog</a>
+  <a class="nav-link mr-auto home" href="{% url 'about'%}">About</a>
 
-<!-- codepen -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navdata" aria-controls="navdata" aria-expanded="false" aria-label="Toggle navigation">
+   <span class="navbar-toggler-icon"></span>
+ </button>
 
-<nav class="navbar navbar-default techfont custom-navbar">
-   <div class="container">
+  <div class="collapse navbar-collapse" id="navdata">
+      <ul class="navbar-nav ml-auto">
 
+        {% if user.is_authenticated %}
+       <li class="nav-item active"><a class="nav-link" href="{% url 'post_new' %}" >New Post</a></li>
 
-     <ul class="nav navbar-nav">
-       <li><a class='navbar-brand bigbrand' href="{% url 'post_list' %}">My Blog</a></li>
-       <li><a href="{% url 'about'%}">About</a></li>
-       <li><a href="https://www.github.com">Github</a></li>
-       <li><a href="https://www.linkedin.com">LinkedIn</a></li>
+       <li class="nav-item active"><a class="nav-link" href="{% url 'post_draft_list' %}">Drafts</a></li>
 
-     </ul>
+       <li class="nav-item active"><a class="nav-link" href="{% url 'logout' %}" >Log out</a></li>
 
-     <ul class="nav navbar-nav navbar-right">
-       {% if user.is_authenticated %}
-       <li>
-         <a href="{% url 'post_new' %}" >New Post</a>
-       </li>
-
-       <li>
-         <a href="{% url 'post_draft_list' %}">Drafts</a>
-       </li>
-       <li>
-         <a href="{% url 'logout' %}" >Log out</a>
-       </li>
-
-       <li>
-         <a >Welcome: {{ user.username }}</a>
+       <li class="nav-item active"><a class="nav-link" >Welcome: {{ user.username }}</a>
        </li>
          {% else %}
-         <li><a class='nav navbar-right' href="{% url 'login' %}" ><span class="glyphicon glyphicon-user"></span></a></li>
+         <li class="nav-item active"><a class="nav-link" href="{% url 'login' %}" >Login</span></a></li>
        {% endif %}
 
      </ul>
  </div>
+   </div>
 </nav>
 
  <!--The actual blog posts-->
        <div class="content container">
            <div class="row">
-               <div class="col-md-8">
                  <div class="blog_posts">
                    {% block content %}
                    {% endblock %}
 
                  </div>
 
-               </div>
+
            </div>
        </div>
-
-  <script src="{% static 'blog/blog.js' %}"></script>
   </body>
 </html>

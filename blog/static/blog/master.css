@@ -1,0 +1,31 @@
+a{
+  color: black;
+}
+
+a:hover{
+  color: grey;
+  text-decoration: none;
+}
+
+a.home{
+  color: white;
+}
+
+.navbar {
+    color: white;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: 0;
+    border-radius: 0;
+    margin-bottom: 0;
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+.navbar-nav  li a:hover {
+    color: grey !important;
+}
+
+
+.post, h1{
+  margin: 20px auto;
+}
