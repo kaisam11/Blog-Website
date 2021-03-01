@@ -1,73 +1,72 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Blog</title>
 
-    <!-- bootstrap -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+<head>
+  <meta charset="utf-8">
+  <title>Blog</title>
 
-    <!-- custom css and js -->
-    <link rel="stylesheet" href="{% static 'blog/master.css' %}">
+  <!-- bootstrap -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 
-    <!-- icon -->
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-    <!-- fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500&display=swap" rel="stylesheet">
+  <!-- custom css and js -->
+  <link rel="stylesheet" href="{% static 'blog/master.css' %}">
 
-    <!-- icons -->
+  <!-- icon -->
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+  <!-- fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500&display=swap" rel="stylesheet">
+
+  <!-- icons -->
 
 
-  </head>
-  <body>
+</head>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+
+      <a class='navbar-brand mb-0 h1' href="{% url 'post_list' %}">Daily-Blog</a>
+      <a class="nav-link mr-auto home" href="{% url 'about'%}">About</a>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navdata" aria-controls="navdata" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navdata">
+        <ul class="navbar-nav ml-auto">
+
+          {% if user.is_authenticated %}
+          <li class="nav-item active"><a class="nav-link" href="{% url 'post_new' %}">New Post</a></li>
+
+          <li class="nav-item active"><a class="nav-link" href="{% url 'post_draft_list' %}">Drafts</a></li>
+
+          <li class="nav-item active"><a class="nav-link" href="{% url 'logout' %}">Log out</a></li>
+
+          <li class="nav-item active"><a class="nav-link">Welcome: {{ user.username }}</a>
+          </li>
+          {% else %}
+          <li class="nav-item active"><a class="nav-link" href="{% url 'login' %}">Login</span></a></li>
+          {% endif %}
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!--The actual blog posts-->
   <div class="container">
+    <div class="blog_posts">
+      {% block content %}
+      {% endblock %}
 
-  <a class='navbar-brand mb-0 h1' href="{% url 'post_list' %}">Daily-Blog</a>
-  <a class="nav-link mr-auto home" href="{% url 'about'%}">About</a>
+    </div>
+  </div>
+</body>
 
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navdata" aria-controls="navdata" aria-expanded="false" aria-label="Toggle navigation">
-   <span class="navbar-toggler-icon"></span>
- </button>
-
-  <div class="collapse navbar-collapse" id="navdata">
-      <ul class="navbar-nav ml-auto">
-
-        {% if user.is_authenticated %}
-       <li class="nav-item active"><a class="nav-link" href="{% url 'post_new' %}" >New Post</a></li>
-
-       <li class="nav-item active"><a class="nav-link" href="{% url 'post_draft_list' %}">Drafts</a></li>
-
-       <li class="nav-item active"><a class="nav-link" href="{% url 'logout' %}" >Log out</a></li>
-
-       <li class="nav-item active"><a class="nav-link" >Welcome: {{ user.username }}</a>
-       </li>
-         {% else %}
-         <li class="nav-item active"><a class="nav-link" href="{% url 'login' %}" >Login</span></a></li>
-       {% endif %}
-
-     </ul>
- </div>
-   </div>
-</nav>
-
- <!--The actual blog posts-->
-       <div class="content container">
-           <div class="row">
-                 <div class="blog_posts">
-                   {% block content %}
-                   {% endblock %}
-
-                 </div>
-
-
-           </div>
-       </div>
-  </body>
 </html>
