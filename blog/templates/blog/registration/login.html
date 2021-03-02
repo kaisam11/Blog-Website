@@ -1,21 +1,21 @@
 {% extends 'blog/base.html' %}
-
+{%load crispy_forms_tags %}
 {% block content %}
 
+<div style="margin: 50px auto;">
   <h2>Please Login</h2>
+  <p>Only for admin</p>
 
   {% if form.errors %}
   <p>Your username or password didnt match! Please try again.</p>
   {% endif %}
 
 <form action="{% url 'login' %}"  method="POST">
-  <div class="form group">
   {% csrf_token %}
-  {{ form.as_p }}
+  {{ form|crispy  }}
   <input type="submit" class="btn btn-dark" value="Login">
   <input type="hidden" name="next" value="{{next}}">
-</div>
 </form>
-
+</div>
 
 {% endblock %}
